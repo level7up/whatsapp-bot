@@ -13,7 +13,7 @@ class WhatsAppService
     public function __construct()
     {
         $this->client = new Client();
-        $this->accessToken = 'EAAJYqzirEk4BO8j606zkV0rBbt33WN6pwAZB6t9grNrV0LUhSB8nYdHyMyCZBOtuA9fDWnGjANk0z3BK2hfB8SdfrmWZCd3ZBOJul7hdX41LH8XLs15xf3iOapFAmumYbZBVzvHltfyo0yf1aLkNEr0sNlG7D2EbsEgaYIeWegFg0J7OdwR6TYRY44ZCwx2Jdtqoiv7TZBDXeBNR23eipIpclmBKyAZD';
+        $this->accessToken = env('WHATSAPP_ACCESS_TOKEN');
         $this->businessId = env('WHATSAPP_BUSINESS_ID');
     }
 
