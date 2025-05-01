@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace Levelup\WhatsApp\Services;
 
 use GuzzleHttp\Client;
 
@@ -13,8 +13,8 @@ class WhatsAppService
     public function __construct()
     {
         $this->client = new Client();
-        $this->accessToken = env('WHATSAPP_ACCESS_TOKEN');
-        $this->businessId = env('WHATSAPP_BUSINESS_ID');
+        $this->accessToken = config('whatsappbot.access_token');
+        $this->businessId = config('whatsappbot.business_id');
     }
 
     public function sendMessage($to, $message)
@@ -22,19 +22,16 @@ class WhatsAppService
 
         $response = $this->client->post("https://graph.facebook.com/v22.0/{$this->businessId}/messages", [
             'headers' => [
-                'Authorization' => "Bearer $this->accessToken",
-                'Content-Type'  => 'application/json',
+                'Authorization' => "Bearer {$this->accessToken}",
+                'Content-Type' => 'application/json',
             ],
             'json' => [
                 'messaging_product' => 'whatsapp',
                 'to' => $to,
-                'type' => 'template',
-                'template' => [
-                    'name' => 'new_bot',
-                    'language' => [
-                        'code' => 'en_US'
-                    ]
-                ]
+                'type' => 'text',
+                'text' => [
+                    'body' => $message,
+                ],
             ],
             'verify' => false,
         ]);
